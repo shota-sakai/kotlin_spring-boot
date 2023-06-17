@@ -14,12 +14,18 @@
         {
             "label": "run",
             "type": "shell",
-            "command": "./gradlew bootRun"
+            "command": "./gradlew bootRun",
+            "problemMatcher": []
         },
         {
             "label": "test",
             "type": "shell",
             "command": "./gradlew test"
-        }
+        },
+        {
+            "label": "debug",
+            "type": "shell",
+            "command": "./gradlew bootRun --debug-jvm"
+        }        
     ]
 }
