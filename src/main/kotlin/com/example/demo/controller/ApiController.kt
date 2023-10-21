@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.validation.BindingResult
 import org.springframework.validation.annotation.Validated
+import org.springframework.http.ResponseEntity
 import com.example.ApiControllerApi
 
 
 import com.example.demo.dto.EntryRequestDto
 import com.example.demo.dto.EntryResponseDto
+import com.example.demo.dto.EntryResponseTestDto
 
 
 @RestController
@@ -19,8 +21,8 @@ import com.example.demo.dto.EntryResponseDto
 class ApiController {
 
     @GetMapping("/")
-    fun getApi(): String {
-        return "test";
+    fun getApi(): ResponseEntity<EntryResponseTestDto> {
+        return ResponseEntity.ok(EntryResponseTestDto("entry"));
     }
 
     @PostMapping("/")
@@ -33,11 +35,7 @@ class ApiController {
     }
 
     @GetMapping("/test")
-    fun getTestApi(): String {
-        val client = ApiControllerApi();
-        println("APIクライアント開始")
-        val str = client.getApi();
-        println("APIクライアント終了")
-        return str;
+    fun getTestApi(): ResponseEntity<EntryResponseTestDto> {
+        return ResponseEntity.ok(EntryResponseTestDto("entry/test"));
     }    
 }
