@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.validation.BindingResult
 import org.springframework.validation.annotation.Validated
+import com.example.ApiControllerApi
+
 
 import com.example.demo.dto.EntryRequestDto
 import com.example.demo.dto.EntryResponseDto
@@ -25,8 +27,17 @@ class ApiController {
     fun postApi(@RequestBody @Validated request: EntryRequestDto, bindingResult: BindingResult): EntryResponseDto {
 
         if(bindingResult.hasErrors()){
-            return EntryResponseDto(request.id, request.customer.name, request.date, bindingResult.allErrors.toString())
+            return EntryResponseDto(request.id, request.customer.name, request.date, bindingResult.getSuppressedFields()[0])
         }
         return EntryResponseDto(request.id, request.customer.name, request.date, "success");
     }
+
+    @GetMapping("/test")
+    fun getTestApi(): String {
+        val client = ApiControllerApi();
+        println("APIクライアント開始")
+        val str = client.getApi();
+        println("APIクライアント終了")
+        return str;
+    }    
 }

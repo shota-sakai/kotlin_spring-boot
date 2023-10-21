@@ -1,0 +1,7 @@
+GET http://ec2-35-75-6-81.ap-northeast-1.compute.amazonaws.com:8080/entry/
+
+###
+GET http://ec2-35-75-6-81.ap-northeast-1.compute.amazonaws.com:8080/v3/api-docs.yaml
+
+###
+GET http://ec2-35-75-6-81.ap-northeast-1.compute.amazonaws.com:8080/entry/test

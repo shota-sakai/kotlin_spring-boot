@@ -5,6 +5,7 @@ plugins {
 	id ("io.spring.dependency-management") version "1.1.0"
 	id ("org.jetbrains.kotlin.jvm") version "1.8.21"
 	id ("org.jetbrains.kotlin.plugin.spring") version "1.8.21"
+	id("org.openapi.generator") version "6.2.0"
 }
 
 group = "com.example"
@@ -47,6 +48,9 @@ dependencies {
 	annotationProcessor  ("org.springframework.boot:spring-boot-configuration-processor")
 	testImplementation ("org.springframework.boot:spring-boot-starter-test")
 	// testImplementation  ("org.springframework.security:spring-security-test")
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
+	implementation("com.example:openapi:2.0.0")
 }
 
 dependencyManagement {
@@ -64,4 +68,28 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+openApiGenerate {
+	generatorName.set("java")
+	inputSpec.set("$rootDir/openapi.yaml")
+	outputDir.set("$rootDir/client")
+	apiPackage.set("org.openapi.example.api")
+	configOptions.set(mapOf(
+		"artifactId" to "openapi",
+		"artifactVersion" to "2.0.0",
+		"groupId" to "com.example",
+		"apiPackage" to "com.example",
+		"library" to "apache-httpclient"
+	))
+}
+
+repositories {
+	maven {
+		url = uri("https://apiclient-domain-795090648644.d.codeartifact.ap-northeast-1.amazonaws.com/maven/test-repository/")
+		credentials {
+				username = "aws"
+				password = System.getenv("CODEARTIFACT_AUTH_TOKEN")
+		}
+	}
 }
