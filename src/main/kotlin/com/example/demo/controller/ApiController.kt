@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.validation.BindingResult
 import org.springframework.validation.annotation.Validated
 import com.example.ApiControllerApi
+import org.openapitools.client.model.EntryResponseTestDto
 
 
 import com.example.demo.dto.EntryRequestDto
-import com.example.demo.dto.EntryResponseDto
 
 
 @RestController
-@RequestMapping("entry")
+@RequestMapping("search")
 class ApiController {
 
     @GetMapping("/")
@@ -23,21 +23,21 @@ class ApiController {
         return "test";
     }
 
-    @PostMapping("/")
-    fun postApi(@RequestBody @Validated request: EntryRequestDto, bindingResult: BindingResult): EntryResponseDto {
+    // @PostMapping("/")
+    // fun postApi(@RequestBody @Validated request: EntryRequestDto, bindingResult: BindingResult): EntryResponseDto {
 
-        if(bindingResult.hasErrors()){
-            return EntryResponseDto(request.id, request.customer.name, request.date, bindingResult.getSuppressedFields()[0])
-        }
-        return EntryResponseDto(request.id, request.customer.name, request.date, "success");
-    }
+    //     if(bindingResult.hasErrors()){
+    //         return EntryResponseDto(request.id, request.customer.name, request.date, bindingResult.getSuppressedFields()[0])
+    //     }
+    //     return EntryResponseDto(request.id, request.customer.name, request.date, "success");
+    // }
 
     @GetMapping("/test")
-    fun getTestApi(): String {
+    fun getTestApi(): EntryResponseTestDto {
         val client = ApiControllerApi();
         println("APIクライアント開始")
-        val str = client.getApi();
+        val result: EntryResponseTestDto = client.getTestApi();
         println("APIクライアント終了")
-        return str;
+        return result;
     }    
 }

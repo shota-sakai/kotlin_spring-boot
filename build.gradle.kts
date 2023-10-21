@@ -50,7 +50,7 @@ dependencies {
 	// testImplementation  ("org.springframework.security:spring-security-test")
 	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
-	implementation("com.example:openapi:2.0.0")
+	implementation("com.example:openapi:8.0.0")
 }
 
 dependencyManagement {
@@ -77,7 +77,7 @@ openApiGenerate {
 	apiPackage.set("org.openapi.example.api")
 	configOptions.set(mapOf(
 		"artifactId" to "openapi",
-		"artifactVersion" to "2.0.0",
+		"artifactVersion" to "3.0.0",
 		"groupId" to "com.example",
 		"apiPackage" to "com.example",
 		"library" to "apache-httpclient"
