@@ -1,0 +1,13 @@
+
+GET http://ec2-35-74-238-31.ap-northeast-1.compute.amazonaws.com:8080/entry/
+
+
+###
+POST http://ec2-35-74-238-31.ap-northeast-1.compute.amazonaws.com:8080/entry/  HTTP/1.1
+content-type: application/json
+
+{
+  "id": null,
+  "num": null
+}
+

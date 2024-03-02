@@ -6,6 +6,7 @@ plugins {
 	id ("org.jetbrains.kotlin.jvm") version "1.8.21"
 	id ("org.jetbrains.kotlin.plugin.spring") version "1.8.21"
 	id("org.openapi.generator") version "6.2.0"
+	id("jacoco") // 追加
 }
 
 group = "com.example"
@@ -28,11 +29,8 @@ ext {
 
 dependencies {
 	implementation ("org.springframework.boot:spring-boot-starter-actuator")
-	// implementation ("org.springframework.boot:spring-boot-starter-security")
 	implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation ("org.springframework.boot:spring-boot-starter-validation:3.0.7")
-	// implementation ("org.springframework.boot:spring-boot-starter-validation")
-	// implementation ("javax.validation:validation-api:2.0.1.Final")
 	implementation("javax.validation:validation-api:1.1.0.Final")
 	implementation("org.hibernate:hibernate-validator:8.0.0.Final")
 	implementation ("org.springframework.boot:spring-boot-starter-web")
@@ -40,17 +38,21 @@ dependencies {
 	implementation ("org.jetbrains.kotlin:kotlin-reflect")
 	implementation ("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2")
 	implementation ("org.springframework.cloud:spring-cloud-starter-openfeign")
-	// implementation ("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+	implementation ("org.springframework.security:spring-security-core:6.2.1")
+	implementation ("org.springframework.boot:spring-boot-starter-security:3.2.1")
 	developmentOnly ("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly ("com.h2database:h2")
 	runtimeOnly ("io.micrometer:micrometer-registry-prometheus")
 	runtimeOnly ("org.postgresql:postgresql")
 	annotationProcessor  ("org.springframework.boot:spring-boot-configuration-processor")
 	testImplementation ("org.springframework.boot:spring-boot-starter-test")
-	// testImplementation  ("org.springframework.security:spring-security-test")
-	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 	implementation("com.example:openapi:2.0.0")
+	implementation(project(":commons")) 
+	// https://mvnrepository.com/artifact/aws.sdk.kotlin/eventbridge-jvm
+	implementation("aws.sdk.kotlin:eventbridge-jvm:1.0.53")
+	// https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+	implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
 }
 
 dependencyManagement {
@@ -68,6 +70,14 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.withType<JacocoReport> {
+    reports {
+        csv.required.set(false)
+        html.required.set(true)
+        xml.required.set(true)
+    }
 }
 
 openApiGenerate {
