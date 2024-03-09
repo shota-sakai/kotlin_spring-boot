@@ -53,6 +53,8 @@ dependencies {
 	implementation("aws.sdk.kotlin:eventbridge-jvm:1.0.53")
 	// https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
 	implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
+	// https://mvnrepository.com/artifact/aws.sdk.kotlin/ssm
+	implementation("aws.sdk.kotlin:ssm:1.0.73")
 }
 
 dependencyManagement {
